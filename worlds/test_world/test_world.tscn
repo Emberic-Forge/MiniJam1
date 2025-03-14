@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://btmw2rlhak05e"]
+
+[ext_resource type="PackedScene" uid="uid://b6qctueeaf66m" path="res://core/player/player.tscn" id="1_1hc4m"]
+[ext_resource type="PackedScene" uid="uid://cpithsoc5m555" path="res://mechanics/gravity_flip/gravity_flip.tscn" id="2_0e87v"]
+[ext_resource type="PackedScene" uid="uid://d3362qk1sfw1r" path="res://core/checkpoint_system/checkpoint.tscn" id="3_0e87v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uya15"]
+ground_bottom_color = Color(0.192202, 0.325872, 0.428834, 1)
+
+[sub_resource type="Sky" id="Sky_6bak2"]
+sky_material = SubResource("ProceduralSkyMaterial_uya15")
+
+[sub_resource type="Environment" id="Environment_r3lko"]
+sky = SubResource("Sky_6bak2")
+ambient_light_source = 3
+ambient_light_color = Color(0.299547, 0.299547, 0.299547, 1)
+ssao_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6bak2"]
+size = Vector3(3.79199, 2.15674, 3.22302)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_75cwa"]
+size = Vector3(2.04395, 2.06433, 2.14063)
+
+[node name="test_world" type="Node"]
+
+[node name="light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2, 0)
+shadow_enabled = true
+
+[node name="player" parent="." instance=ExtResource("1_1hc4m")]
+acceleration = 6.0
+decceleration = 8.0
+air_acceleration = 6.0
+air_decceleration = 4.0
+
+[node name="world_post_processing" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r3lko")
+
+[node name="terrain" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(150, 1, 150)
+
+[node name="floor2" type="CSGBox3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.76259, 12.3368, -6.63568)
+use_collision = true
+size = Vector3(22.5586, 1, 21.8292)
+
+[node name="obstacles" type="Node3D" parent="terrain"]
+
+[node name="wall" type="CSGBox3D" parent="terrain/obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.60169, 1)
+use_collision = true
+size = Vector3(1, 6.19238, 6.53613)
+
+[node name="wall2" type="CSGBox3D" parent="terrain/obstacles"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 2.60169, -5)
+use_collision = true
+size = Vector3(1, 6.19238, 6.53613)
+
+[node name="interactables" type="Node3D" parent="."]
+
+[node name="gravity_flip" parent="interactables" instance=ExtResource("2_0e87v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.40865)
+
+[node name="area" type="CollisionShape3D" parent="interactables/gravity_flip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.578369, -0.735168)
+shape = SubResource("BoxShape3D_6bak2")
+debug_color = Color(5.19812e-06, 0.749606, 0.874856, 1)
+
+[node name="gravity_flip2" parent="interactables" instance=ExtResource("2_0e87v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.1978, -14.306)
+
+[node name="area" type="CollisionShape3D" parent="interactables/gravity_flip2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.542027, -0.0441399)
+shape = SubResource("BoxShape3D_6bak2")
+debug_color = Color(5.19812e-06, 0.749606, 0.874856, 1)
+
+[node name="checkpoint" parent="interactables" instance=ExtResource("3_0e87v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2631, 0.552452, -3.27829)
+
+[node name="area" type="CollisionShape3D" parent="interactables/checkpoint"]
+shape = SubResource("BoxShape3D_75cwa")
+debug_color = Color(0.160498, 0.778217, 3.85046e-07, 1)
+
+[node name="indicator" type="Label3D" parent="interactables/checkpoint"]
+text = "Checkpoint"
+
+[node name="checkpoint2" parent="interactables" instance=ExtResource("3_0e87v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90801, 10.7299, -10.2783)
+
+[node name="area" type="CollisionShape3D" parent="interactables/checkpoint2"]
+shape = SubResource("BoxShape3D_75cwa")
+debug_color = Color(0.160498, 0.778217, 3.85046e-07, 1)
+
+[node name="indicator" type="Label3D" parent="interactables/checkpoint2"]
+transform = Transform3D(1, -8.74228e-08, -8.74228e-08, -8.74228e-08, -1, 0, -8.74228e-08, 7.64274e-15, -1, 0, 0, 0)
+text = "Checkpoint"

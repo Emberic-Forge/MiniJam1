@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpithsoc5m555"]
+
+[ext_resource type="Script" uid="uid://dmtmu1sraoono" path="res://mechanics/gravity_flip/scripts/gravity_flip.gd" id="1_jevxa"]
+
+[node name="gravity_flip" type="Area3D"]
+script = ExtResource("1_jevxa")
+
+[node name="model" type="CSGSphere3D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
