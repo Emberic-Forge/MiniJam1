@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6qctueeaf66m"]
+[gd_scene load_steps=5 format=3 uid="uid://b6qctueeaf66m"]
 
 [ext_resource type="Script" uid="uid://chmt6qktc8ope" path="res://core/player/scripts/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://h2lcwj54xdhx" path="res://core/player/model/player_model.tscn" id="2_h46vi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+height = 1.82554
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_oul6g"]
 
@@ -12,15 +14,24 @@ acceleration = 0.6
 decceleration = 0.8
 air_acceleration = 0.6
 air_decceleration = 0.4
+sprint_anim_transition_time = 10.0
+air_anim_transition_time = 7.5
 
 [node name="body_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.108359, 0)
 shape = SubResource("CapsuleShape3D_kqu6x")
-
-[node name="temp_mesh" type="CSGBox3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, 1.8, 0, 0, 0, 0.36, 0, 0, 0)
+debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="camera_base" type="SpringArm3D" parent="."]
 shape = SubResource("SeparationRayShape3D_oul6g")
 spring_length = 10.0
 
 [node name="camera" type="Camera3D" parent="camera_base"]
+current = true
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="player" parent="model" instance=ExtResource("2_h46vi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01647, 0)
+
+[editable path="model/player"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://h2lcwj54xdhx"]
+
+[ext_resource type="PackedScene" uid="uid://8be4lfskvrms" path="res://core/player/model/player.glb" id="1_2qlr8"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v0oia"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lf1v1"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_t7to7"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_v0oia")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_lf1v1")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_roeqh"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_riu06"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ee7qj"]
+animation = &"Sprint"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_2ctgx"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_roeqh")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_riu06")
+blend_point_1/pos = 0.5
+blend_point_2/node = SubResource("AnimationNodeAnimation_ee7qj")
+blend_point_2/pos = 1.0
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_2qlr8"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2qlr8"]
+graph_offset = Vector2(-572, -19)
+"nodes/Air Anim/node" = SubResource("AnimationNodeBlendSpace1D_t7to7")
+"nodes/Air Anim/position" = Vector2(-140, 260)
+"nodes/Ground Walk/node" = SubResource("AnimationNodeBlendSpace1D_2ctgx")
+"nodes/Ground Walk/position" = Vector2(-155, 92)
+nodes/Transition/node = SubResource("AnimationNodeBlend2_2qlr8")
+nodes/Transition/position = Vector2(100, 140)
+nodes/output/position = Vector2(300, 140)
+node_connections = [&"Transition", 0, &"Ground Walk", &"Transition", 1, &"Air Anim", &"output", 0, &"Transition"]
+
+[node name="player" instance=ExtResource("1_2qlr8")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-0.0142318, 1.19197e-07, -1.69656e-09, 0.999899)
+bones/1/rotation = Quaternion(0.706558, -0.0278575, 0.706558, -0.0278567)
+bones/1/scale = Vector3(1, 1, 1.00003)
+bones/2/rotation = Quaternion(4.96036e-08, -5.41825e-08, -0.0863649, 0.996264)
+bones/3/rotation = Quaternion(0.0169445, 7.40909e-14, 4.03543e-09, 0.999857)
+bones/4/rotation = Quaternion(0.998053, -0.000372578, 0.0620856, -0.00598934)
+bones/5/rotation = Quaternion(4.67465e-10, -1.8681e-09, 1.60185e-10, 1)
+bones/6/rotation = Quaternion(-0.706558, -0.0278573, 0.706558, 0.0278565)
+bones/6/scale = Vector3(1, 1, 1.00003)
+bones/7/rotation = Quaternion(3.08238e-08, 5.52448e-08, 0.0863649, 0.996264)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_2qlr8")
+anim_player = NodePath("../AnimationPlayer")
+"parameters/Air Anim/blend_position" = 0.0
+"parameters/Ground Walk/blend_position" = 0.0
+parameters/Transition/blend_amount = 0
