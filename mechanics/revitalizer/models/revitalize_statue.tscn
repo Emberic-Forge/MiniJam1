@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkbhs17aad2ax"]
+
+[ext_resource type="PackedScene" uid="uid://bajmbyw17dip4" path="res://mechanics/revitalizer/models/revitalize_statue.glb" id="1_i1dvp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i1dvp"]
+size = Vector3(2.51367, 2.02703, 2.24585)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fv3k7"]
+animation = &"Active"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i1dvp"]
+animation = &"Inactive"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_71hfv"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4w10i"]
+graph_offset = Vector2(-551, 19)
+nodes/Active_State/node = SubResource("AnimationNodeAnimation_fv3k7")
+nodes/Active_State/position = Vector2(-180, 320)
+nodes/Inactive_State/node = SubResource("AnimationNodeAnimation_i1dvp")
+nodes/Inactive_State/position = Vector2(-180, 120)
+nodes/Set_State/node = SubResource("AnimationNodeBlend2_71hfv")
+nodes/Set_State/position = Vector2(60, 100)
+nodes/output/position = Vector2(300, 120)
+node_connections = [&"Set_State", 0, &"Inactive_State", &"Set_State", 1, &"Active_State", &"output", 0, &"Set_State"]
+
+[node name="revitalize_statue" instance=ExtResource("1_i1dvp")]
+
+[node name="collision" type="StaticBody3D" parent="." index="3"]
+
+[node name="shape" type="CollisionShape3D" parent="collision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1213, 0)
+shape = SubResource("BoxShape3D_i1dvp")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeBlendTree_4w10i")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Set_State/blend_amount = 0.0

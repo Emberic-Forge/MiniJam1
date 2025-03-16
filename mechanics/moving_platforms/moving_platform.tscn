@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfbwmohmpgr4y"]
+
+[ext_resource type="PackedScene" uid="uid://bdst38yglphvk" path="res://mechanics/moving_platforms/moving_node.tscn" id="1_0xiub"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0xiub"]
+radius = 0.25
+height = 0.5
+
+[node name="moving_platform" type="Node3D"]
+
+[node name="moving_node" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("1_0xiub")]
+start_point = NodePath("../start_point")
+end_point = NodePath("../end_point")
+speed = 5.0
+wait_duration_in_seconds = 3.0
+
+[node name="platform" type="CSGBox3D" parent="moving_node"]
+size = Vector3(9.22046, 1, 8.84375)
+
+[node name="start_point" type="Node3D" parent="."]
+
+[node name="indicator" type="MeshInstance3D" parent="start_point"]
+mesh = SubResource("SphereMesh_0xiub")
+
+[node name="end_point" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="indicator" type="MeshInstance3D" parent="end_point"]
+mesh = SubResource("SphereMesh_0xiub")
+
+[editable path="moving_node"]

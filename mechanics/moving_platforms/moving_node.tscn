@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdst38yglphvk"]
+
+[ext_resource type="Script" uid="uid://ccjphsgttgg7s" path="res://mechanics/moving_platforms/scripts/moving_node.gd" id="1_bevb1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bevb1"]
+size = Vector3(9.17944, 1, 8.8999)
+
+[node name="moving_node" type="AnimatableBody3D"]
+sync_to_physics = false
+script = ExtResource("1_bevb1")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_bevb1")

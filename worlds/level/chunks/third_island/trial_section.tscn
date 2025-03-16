@@ -1,0 +1,163 @@
+[gd_scene load_steps=9 format=3 uid="uid://jirwfdahpf2l"]
+
+[ext_resource type="PackedScene" uid="uid://cxt6fm053p2hk" path="res://mechanics/revitalizer/revitalizer.tscn" id="1_msqfx"]
+[ext_resource type="PackedScene" uid="uid://cfbwmohmpgr4y" path="res://mechanics/moving_platforms/moving_platform.tscn" id="2_7pjau"]
+[ext_resource type="PackedScene" uid="uid://cpithsoc5m555" path="res://mechanics/gravity_flip/gravity_flip.tscn" id="3_txck2"]
+[ext_resource type="PackedScene" uid="uid://bcv5pgfye1fpg" path="res://utility/stopwatch.tscn" id="5_txck2"]
+[ext_resource type="Script" uid="uid://cglvum1fgktqy" path="res://worlds/level/chunks/third_island/scripts/manual_revitalizer_kill_switch.gd" id="6_8tm02"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8tm02"]
+size = Vector3(5.18579, 4.83093, 5.04541)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74b1g"]
+size = Vector3(4.07813, 2.97083, 5.19141)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_txck2"]
+size = Vector3(189.55, 38.4506, 224.789)
+
+[node name="trial_section" type="Node3D"]
+
+[node name="floor" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="box" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21191, 0, 5.46326)
+size = Vector3(5.42383, 1, 11.9265)
+
+[node name="box2" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10232, 0, 7.92979)
+size = Vector3(11.1799, 1, 13.063)
+
+[node name="revitalizer" parent="." node_paths=PackedStringArray("objects_to_affect") instance=ExtResource("1_msqfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9967, 0.120535, 13.1269)
+duration_in_seconds = 80.0
+objects_to_affect = [NodePath("../invisible_section/floor"), NodePath("../invisible_section/moving_platform"), NodePath("../invisible_section/moving_platform2"), NodePath("../invisible_section/moving_platform3"), NodePath("../invisible_section/gravity_flip")]
+active_color = Color(0, 1, 1, 1)
+
+[node name="area" type="CollisionShape3D" parent="revitalizer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91547, -0.435791)
+shape = SubResource("BoxShape3D_8tm02")
+
+[node name="invisible_section" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 18)
+
+[node name="floor" type="CSGCombiner3D" parent="invisible_section"]
+use_collision = true
+
+[node name="box" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.12758)
+size = Vector3(8.07129, 1, 8.97379)
+
+[node name="box2" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2945, -5.72205e-06, 22.7041)
+size = Vector3(25.6074, 1, 19.2409)
+
+[node name="box3" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9575, -5.72205e-06, 16.9609)
+size = Vector3(19.6875, 1, 13.878)
+
+[node name="box4" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.485, -5.72205e-06, 22.6367)
+size = Vector3(19.6875, 1, 13.878)
+
+[node name="box10" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.142, -5.72205e-06, 24.0488)
+size = Vector3(20.2891, 1, 21.7217)
+
+[node name="box11" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.26, -5.72205e-06, 39.6933)
+size = Vector3(13.8126, 1, 21.2653)
+
+[node name="box8" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.6634, -5.72205e-06, 13.654)
+size = Vector3(3.59741, 1, 4.05469)
+
+[node name="box9" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.2598, -5.72205e-06, 39.5899)
+size = Vector3(12.3848, 1, 11.0811)
+
+[node name="box5" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.0274, -7.62939e-06, 32.7533)
+size = Vector3(14.5654, 1, 6.15286)
+
+[node name="box6" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5808, -7.62939e-06, 5.72428)
+size = Vector3(8.80859, 1, 3.78613)
+
+[node name="box7" type="CSGBox3D" parent="invisible_section/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.621, -7.62939e-06, 8.57187)
+size = Vector3(2.84174, 1, 4.49268)
+
+[node name="moving_platform" parent="invisible_section" instance=ExtResource("2_7pjau")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.4321, 0, 43.4661)
+
+[node name="moving_node" parent="invisible_section/moving_platform" index="0"]
+speed = 7.0
+wait_duration_in_seconds = 0.8
+
+[node name="end_point" parent="invisible_section/moving_platform" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="moving_platform2" parent="invisible_section" instance=ExtResource("2_7pjau")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 84.4426, -3.8147e-06, 18.2667)
+
+[node name="moving_node" parent="invisible_section/moving_platform2" index="0"]
+speed = 7.0
+wait_duration_in_seconds = 0.8
+start_delay_in_seconds = 0.5
+
+[node name="end_point" parent="invisible_section/moving_platform2" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="moving_platform3" parent="invisible_section" instance=ExtResource("2_7pjau")]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 97.9407, 0, 32.3442)
+
+[node name="moving_node" parent="invisible_section/moving_platform3" index="0"]
+speed = 7.0
+wait_duration_in_seconds = 0.8
+
+[node name="end_point" parent="invisible_section/moving_platform3" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="gravity_flip" parent="invisible_section" instance=ExtResource("3_txck2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.592, 0.907228, 24.5141)
+
+[node name="area" type="CollisionShape3D" parent="invisible_section/gravity_flip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985413, 0)
+shape = SubResource("BoxShape3D_74b1g")
+
+[node name="stopwatch" parent="." instance=ExtResource("5_txck2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66623, 1, 22.2194)
+
+[node name="start" parent="stopwatch" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35251, 0, -5.74805)
+
+[node name="area" parent="stopwatch/start" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.18143, 0, 0)
+
+[node name="end" parent="stopwatch" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.246, 346.805, 20.2808)
+
+[node name="area" parent="stopwatch/end" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.49756, 0)
+
+[node name="manual_revitalizer_kill_switch" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.6, 417.025, 42.4852)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_8tm02")
+
+[node name="shape" type="CollisionShape3D" parent="manual_revitalizer_kill_switch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.7253, 0)
+shape = SubResource("BoxShape3D_txck2")
+debug_color = Color(0.766311, 0.000136788, 0.660199, 1)
+
+[connection signal="body_entered" from="manual_revitalizer_kill_switch" to="manual_revitalizer_kill_switch" method="_on_body_entered"]
+
+[editable path="invisible_section/moving_platform"]
+[editable path="invisible_section/moving_platform/moving_node"]
+[editable path="invisible_section/moving_platform2"]
+[editable path="invisible_section/moving_platform2/moving_node"]
+[editable path="invisible_section/moving_platform3"]
+[editable path="invisible_section/moving_platform3/moving_node"]
+[editable path="stopwatch"]

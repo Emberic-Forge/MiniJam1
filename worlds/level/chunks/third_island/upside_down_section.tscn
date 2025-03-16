@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://c45selfni4ba6"]
+
+[ext_resource type="PackedScene" uid="uid://cpithsoc5m555" path="res://mechanics/gravity_flip/gravity_flip.tscn" id="1_bxb3k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y8dji"]
+size = Vector3(5.27197, 3.60889, 5.49512)
+
+[node name="upside_down_section" type="Node3D"]
+
+[node name="floor" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.294952, 0.154552, -0.512512)
+use_collision = true
+
+[node name="box" type="CSGBox3D" parent="floor"]
+size = Vector3(11.6006, 1, 40.4182)
+
+[node name="box2" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 15)
+size = Vector3(11.6006, 1, 40.4182)
+
+[node name="box3" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0283, 0, -16.5548)
+size = Vector3(8.76428, 1, 8.59534)
+
+[node name="box4" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15587, 0, -40.0845)
+size = Vector3(8.76428, 1, 25.0745)
+
+[node name="box5" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9809, 0, -37.049)
+size = Vector3(4.83624, 1, 11.6727)
+
+[node name="box6" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.34707, 0, -52.4782)
+size = Vector3(4.83624, 1, 4.86328)
+
+[node name="box7" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.911568, 0, -79.6325)
+size = Vector3(22.2607, 1, 28.4109)
+
+[node name="box8" type="CSGBox3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30257, 0, -98.2092)
+size = Vector3(8.11621, 1, 8.82538)
+
+[node name="gravity_flip" parent="." instance=ExtResource("1_bxb3k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.16252, -100)
+
+[node name="area" type="CollisionShape3D" parent="gravity_flip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.272217, 1.30444, 0.372559)
+shape = SubResource("BoxShape3D_y8dji")

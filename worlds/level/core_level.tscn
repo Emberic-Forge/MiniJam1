@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bglycd26ajbsc"]
+
+[ext_resource type="PackedScene" uid="uid://dgcfmw0xhc2o1" path="res://worlds/level/chunks/starting_island/starting_island.tscn" id="2_nqh76"]
+[ext_resource type="PackedScene" uid="uid://bsape7v8xfueu" path="res://worlds/level/chunks/first_island/first_island.tscn" id="2_wi805"]
+[ext_resource type="PackedScene" uid="uid://dmyxgv1vbhe1t" path="res://worlds/level/chunks/second_island/second_island.tscn" id="3_wi805"]
+[ext_resource type="PackedScene" uid="uid://dwahw71jp27cu" path="res://worlds/level/chunks/third_island/third_island.tscn" id="4_plphq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sbhq2"]
+sky_top_color = Color(0.529412, 0.807843, 0.921569, 1)
+sky_horizon_color = Color(0.917477, 0.921338, 0.928118, 1)
+ground_bottom_color = Color(0.529412, 0.807843, 0.921569, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+sun_angle_max = 39.12
+sun_curve = 0.321531
+
+[sub_resource type="Sky" id="Sky_nqh76"]
+sky_material = SubResource("ProceduralSkyMaterial_sbhq2")
+
+[sub_resource type="Environment" id="Environment_wi805"]
+background_mode = 2
+sky = SubResource("Sky_nqh76")
+ambient_light_color = Color(0.454524, 0.454524, 0.454524, 1)
+
+[node name="core_level" type="Node3D"]
+
+[node name="enviroment_fx" type="Node3D" parent="."]
+
+[node name="directional_light" type="DirectionalLight3D" parent="enviroment_fx"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+shadow_enabled = true
+
+[node name="post_processing" type="WorldEnvironment" parent="enviroment_fx"]
+environment = SubResource("Environment_wi805")
+
+[node name="starting_island" parent="." instance=ExtResource("2_nqh76")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 16, 0, -38)
+
+[node name="first_island" parent="." instance=ExtResource("2_wi805")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -94.9388, -8)
+
+[node name="second_island" parent="." instance=ExtResource("3_wi805")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.6382, -98.1875, -135.129)
+
+[node name="moving_node" parent="second_island/main_island/moving_platforms/platform_a" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.8448, 0, -0.150314)
+
+[node name="third_island" parent="." instance=ExtResource("4_plphq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.405, -98.1898, -284.744)
+
+[editable path="starting_island"]
+[editable path="first_island"]
+[editable path="first_island/door_section_upsidedown"]
+[editable path="second_island"]
+[editable path="second_island/main_island/moving_platforms/platform_a/moving_node"]

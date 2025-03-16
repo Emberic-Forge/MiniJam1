@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://homfuhulf7rh" path="res://core/checkpoint_system/scripts/checkpoint.gd" id="1_2ygse"]
 
 [node name="checkpoint" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_2ygse")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

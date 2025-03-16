@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu1o7jdxstitv"]
+
+[ext_resource type="PackedScene" uid="uid://dq6lx6knjhgcd" path="res://mechanics/door/models/archway_gate.glb" id="1_ttxij"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vd7tj"]
+size = Vector3(2.18704, 18.8003, 1.55804)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o2har"]
+size = Vector3(2.91431, 10.5212, 9.81993)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ijegw"]
+size = Vector3(1, 10.4359, 9.2991)
+
+[node name="archway_gate" instance=ExtResource("1_ttxij")]
+
+[node name="collision" type="StaticBody3D" parent="frame" index="0"]
+
+[node name="pillar_shape" type="CollisionShape3D" parent="frame/collision" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52218, 9.5422, 0.0758812)
+shape = SubResource("BoxShape3D_vd7tj")
+
+[node name="pillar_shape2" type="CollisionShape3D" parent="frame/collision" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.47782, 9.5422, 0.0758817)
+shape = SubResource("BoxShape3D_vd7tj")
+
+[node name="archway" type="CollisionShape3D" parent="frame/collision" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.104177, 13.8692, 0.0758814)
+shape = SubResource("BoxShape3D_o2har")
+
+[node name="collision" type="StaticBody3D" parent="door" index="0"]
+
+[node name="shape" type="CollisionShape3D" parent="door/collision" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.129056, 5.02097, 0.0263519)
+shape = SubResource("BoxShape3D_ijegw")

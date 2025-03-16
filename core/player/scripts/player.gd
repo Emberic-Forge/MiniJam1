@@ -1,8 +1,8 @@
 class_name Player extends CharacterBody3D
 
 @export_group("Ground Movement")
-@export var movement_speed : float = 10.0
-@export var sprint_speed : float = 20.0
+@export var walk_distance_per_second : float = 3.0
+@export var sprint_distance_per_second : float = 6.0
 @export_range(0.0, 10.0, 0.1) var acceleration : float = 1.0
 @export_range(0.0, 10.0, 0.1) var decceleration : float = 1.0
 
@@ -26,13 +26,16 @@ class_name Player extends CharacterBody3D
 @onready var camera : Camera3D = $camera_base/camera
 @onready var model : Node3D = $model
 @onready var animation_tree : AnimationTree = $model/player/AnimationTree
+@onready var body_shape : CollisionShape3D  = $body_shape
 
 var camera_input_direction : Vector2 = Vector2.ZERO
-var can_flip_gravity_flag : bool
+var sprint_flag : bool
 
 var ground_walk_blend_value : float
 var air_anim_blend_value : float
 var transition_blend_value : float
+
+signal on_interact
 
 func _get_gravity_direction() -> Vector3:
 	return PhysicsServer3D.area_get_param(get_viewport().find_world_3d().space, PhysicsServer3D.AREA_PARAM_GRAVITY_VECTOR)
@@ -45,7 +48,9 @@ func _set_gravity_direction(new_direction : Vector3) -> void:
 
 func _is_gravity_flipped() -> bool:
 	var current_gravity = _get_gravity_direction()
-	var result : bool = current_gravity != Vector3.DOWN
+	var result : bool = current_gravity.dot(Vector3.DOWN) <= 0
+
+
 	return result
 
 func _ready() -> void:
@@ -68,9 +73,9 @@ func _unhandled_input(event : InputEvent) -> void:
 
 func _process(delta : float) -> void:
 	_handle_camera_control(delta)
-	_handle_gravity_flip()
 	_update_animation_tree(delta)
 	_handle_model_orientation()
+	_handle_interactions()
 
 func _physics_process(delta : float) -> void:
 	_handle_gravity(delta)
@@ -80,6 +85,11 @@ func _physics_process(delta : float) -> void:
 	_DEBUG_force_respawn()
 
 	move_and_slide()
+
+func _handle_interactions() -> void:
+	if Input.is_action_just_pressed("interact") and on_interact.has_connections():
+		on_interact.emit(self)
+		print("Interacted!")
 
 func _handle_model_orientation() -> void:
 	var is_flipped := _is_gravity_flipped()
@@ -126,11 +136,18 @@ func _handle_movement(delta : float) -> void:
 
 	var directional_input : Vector3 = (camera_base.basis.x * parallelInput + camera_base.basis.z * forwardInput).normalized()
 
+	if _is_on_floor():
+		sprint_flag = Input.is_action_pressed("sprint")
+
 	var target_motion : Vector3
 
-	var target_acceleration : float = acceleration if is_on_floor() else air_acceleration
-	var target_decceleration : float = decceleration if is_on_floor() else air_decceleration
-	var target_speed : float = sprint_speed if Input.is_action_pressed("sprint") else movement_speed
+	var target_acceleration : float = acceleration if _is_on_floor() else air_acceleration
+	var target_decceleration : float = decceleration if _is_on_floor() else air_decceleration
+
+	var walk_speed = walk_distance_per_second / delta
+	var sprint_speed = sprint_distance_per_second / delta
+
+	var target_speed : float = sprint_speed if sprint_flag  else walk_speed
 
 	if directional_input.length() > 0:
 		var target_velocity = Vector3(directional_input.x * target_speed , velocity.y, directional_input.z * target_speed )
@@ -147,14 +164,13 @@ func _rotate_model_towards_direction(direction : Vector3) -> void:
 	model.rotation.y = atan2(-direction.x,-direction.z)
 
 func _handle_jump() -> void:
-	if Input.is_action_pressed("jump") && _is_on_floor():
+	var gravity_direction : Vector3 = _get_gravity_direction()
+	var dot = velocity.dot(gravity_direction.normalized())
+	if Input.is_action_pressed("jump") && _is_on_floor() && (is_equal_approx(dot, 0) || dot > 0) :
 		var gravity : float = _get_gravity_amount()
-		var gravity_direction : Vector3 = _get_gravity_direction()
 		var jump_velocity : float = sqrt(2 * gravity * jump_height)
-
 		var target_motion = -gravity_direction * jump_velocity
 		velocity += target_motion
-
 
 func _handle_gravity(delta : float) -> void:
 	if _is_on_floor():
@@ -165,39 +181,22 @@ func _handle_gravity(delta : float) -> void:
 	var target_motion = gravity_direction * gravity * delta
 	velocity += target_motion
 
-func _handle_gravity_flip() -> void:
-	if not can_flip_gravity_flag:
-		return
-
-	if Input.is_action_just_pressed("interact"):
-		_flip_gravity()
-
-func _flip_gravity() -> void:
+func _flip_gravity() -> Vector3:
 	var gravity_direction : Vector3 = _get_gravity_direction()
 	print("Old Gravity: (%f, %f, %f)" % [gravity_direction.x, gravity_direction.y, gravity_direction.z])
-	gravity_direction = gravity_direction * -1
+	var new_gravity_direction = gravity_direction * -1
 
-	_set_gravity_direction(gravity_direction)
-	print("Gravity has flipped: (%f, %f, %f)" % [gravity_direction.x, gravity_direction.y, gravity_direction.z])
+	set_gravity_direction(new_gravity_direction)
+
+	return gravity_direction
 
 
 func _is_on_floor() -> bool:
-	var is_gravity_flipped := _is_gravity_flipped()
-	var condition : bool = (
-		(is_on_floor() and !is_gravity_flipped) or
-		(is_on_ceiling() and is_gravity_flipped)
-	)
-	return condition
+	return is_on_floor()
 
 func _DEBUG_force_respawn() -> void:
 	if Input.is_action_just_pressed("debug_respawn"):
 		CheckpointSystem.reload_to_latest_saved_game_state()
-
-func enable_gravity_flip() -> void:
-	can_flip_gravity_flag = true
-
-func disable_gravity_flip() -> void:
-	can_flip_gravity_flag = false
 
 
 func rotate_camera_towards(new_rotation : Vector3) -> void:
@@ -207,4 +206,7 @@ func rotate_camera_towards(new_rotation : Vector3) -> void:
 
 func set_gravity_direction(new_gravity_direction : Vector3) -> void:
 	_set_gravity_direction(new_gravity_direction)
-	print("Gravity has flipped: (%f, %f, %f)" % [new_gravity_direction.x, new_gravity_direction.y, new_gravity_direction.z])
+	up_direction = -new_gravity_direction
+	print("Gravity has been overriden: (%f, %f, %f)" % [new_gravity_direction.x, new_gravity_direction.y, new_gravity_direction.z])
+	var gravity_direction = _get_gravity_direction()
+	print("Gravity (%f, %f, %f), Dot Product: %f" % [gravity_direction.x, gravity_direction.y, gravity_direction.z, gravity_direction.dot(Vector3.DOWN)])

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgcfmw0xhc2o1"]
+
+[ext_resource type="PackedScene" uid="uid://dt1k6ol76tbil" path="res://worlds/level/chunks/starting_island/spawn_section.tscn" id="1_urhrq"]
+[ext_resource type="PackedScene" uid="uid://dl5nso47sdlo6" path="res://worlds/level/chunks/starting_island/small_archepelago.tscn" id="2_1p257"]
+[ext_resource type="PackedScene" uid="uid://bsfofmblu77bk" path="res://mechanics/spawner/spawner.tscn" id="3_5o80a"]
+[ext_resource type="PackedScene" uid="uid://6sj4rml1cf0r" path="res://worlds/level/chunks/starting_island/first_gravity_flip_section.tscn" id="3_mr05p"]
+
+[node name="starting_island" type="Node3D"]
+
+[node name="spawn_section" parent="." instance=ExtResource("1_urhrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 38)
+
+[node name="small_archepelago" parent="." instance=ExtResource("2_1p257")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7721, 0, 4.11398)
+
+[node name="first_gravity_flip_section" parent="." instance=ExtResource("3_mr05p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9796, 0, -28.9803)
+
+[node name="spawner" parent="." instance=ExtResource("3_5o80a")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -14.7078, 1.14498, 37.7369)
+player_file_path = "uid://b6qctueeaf66m"

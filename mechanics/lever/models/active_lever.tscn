@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpo5xi6vor8mh"]
+
+[ext_resource type="PackedScene" uid="uid://dgio85f4j8hae" path="res://mechanics/lever/models/active_lever.glb" id="1_sqbhq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_131sl"]
+size = Vector3(2.0354, 2.28909, 2.04517)
+
+[node name="active_lever" instance=ExtResource("1_sqbhq")]
+
+[node name="lever" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -0.573577, -0.819152, 0, 0.819152, -0.573577, 0, 1.43085, 0.291342)
+
+[node name="collision" type="StaticBody3D" parent="." index="3"]
+
+[node name="shape" type="CollisionShape3D" parent="collision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15144, 0.0406494)
+shape = SubResource("BoxShape3D_131sl")

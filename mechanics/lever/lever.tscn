@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhcwc8ew0kgkh"]
+
+[ext_resource type="Script" uid="uid://rnete585dn2u" path="res://mechanics/lever/scripts/lever.gd" id="1_udyvx"]
+[ext_resource type="PackedScene" uid="uid://bpo5xi6vor8mh" path="res://mechanics/lever/models/active_lever.tscn" id="2_bjkr4"]
+
+[node name="lever" type="Area3D"]
+script = ExtResource("1_udyvx")
+metadata/_custom_type_script = "uid://dox67wl0ie327"
+
+[node name="active_lever" parent="." instance=ExtResource("2_bjkr4")]
+
+[node name="lever" parent="active_lever" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, 0, 1.43085, 0.291342)
+
+[editable path="active_lever"]

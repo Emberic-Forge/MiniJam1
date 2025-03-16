@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmyxgv1vbhe1t"]
+
+[ext_resource type="PackedScene" uid="uid://c17b54k8ete2q" path="res://worlds/level/chunks/second_island/archepelago_bridge.tscn" id="1_3bps2"]
+[ext_resource type="PackedScene" uid="uid://bk4crpa3gjt0v" path="res://worlds/level/chunks/second_island/main_island.tscn" id="2_772t2"]
+
+[node name="second_island" type="Node3D"]
+
+[node name="archepelago_bridge" parent="." instance=ExtResource("1_3bps2")]
+
+[node name="main_island" parent="." instance=ExtResource("2_772t2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159.714, 0, -44.1722)

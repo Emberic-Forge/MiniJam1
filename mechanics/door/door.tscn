@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://nkv23qibh8xl"]
+
+[ext_resource type="Script" uid="uid://cpngjyxgj4oy7" path="res://mechanics/door/scripts/door.gd" id="1_8ogyj"]
+[ext_resource type="PackedScene" uid="uid://bu1o7jdxstitv" path="res://mechanics/door/models/archway_gate.tscn" id="1_toy2w"]
+
+[node name="door" type="Node3D"]
+script = ExtResource("1_8ogyj")
+
+[node name="archway_gate" parent="." instance=ExtResource("1_toy2w")]
+
+[node name="door" parent="archway_gate" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.198503, 0)
+
+[editable path="archway_gate"]

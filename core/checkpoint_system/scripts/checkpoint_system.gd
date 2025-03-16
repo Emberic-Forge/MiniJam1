@@ -9,9 +9,9 @@ var latest_saved_gravity_direction : Vector3
 func register_player(player : Player) -> void:
 	player_reference = player
 
-func snapshot_game_state(incoming_checkpoint : Checkpoint) -> void:
-	latest_saved_checkpoint_pos = incoming_checkpoint.position
-	latest_saved_checkpoint_rot = incoming_checkpoint.rotation
+func snapshot_game_state(incoming_node : Node3D) -> void:
+	latest_saved_checkpoint_pos = incoming_node.global_position
+	latest_saved_checkpoint_rot = incoming_node.global_rotation
 	latest_saved_gravity_direction = player_reference._get_gravity_direction()
 	print("Created a snapshot of the current game state!")
 

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxt6fm053p2hk"]
+
+[ext_resource type="Script" uid="uid://bwiiwxskgl4k3" path="res://mechanics/revitalizer/scripts/revitalizer.gd" id="1_0np50"]
+[ext_resource type="PackedScene" uid="uid://dkbhs17aad2ax" path="res://mechanics/revitalizer/models/revitalize_statue.tscn" id="2_bj73i"]
+
+[node name="revitalizer" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_0np50")
+
+[node name="revitalize_statue" parent="." instance=ExtResource("2_bj73i")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+
+[editable path="revitalize_statue"]
