@@ -1,0 +1,145 @@
+[gd_scene load_steps=8 format=3 uid="uid://e1ipmhsa6ojb"]
+
+[ext_resource type="Script" uid="uid://csk0s3wxsyreb" path="res://menu/scripts/main_menu.gd" id="2_f5okj"]
+[ext_resource type="PackedScene" uid="uid://ckd5pjrgnv8ky" path="res://worlds/level/assets/islands/island_a.tscn" id="3_1x3cv"]
+[ext_resource type="LabelSettings" uid="uid://c2ux3ct7kqsps" path="res://settings/ui/labels/title.tres" id="3_o5w3e"]
+[ext_resource type="PackedScene" uid="uid://qd2csst3vs7s" path="res://worlds/level/post_processing/enviroment_fx.tscn" id="4_jc45y"]
+[ext_resource type="PackedScene" uid="uid://b3erbsmnj3qje" path="res://worlds/level/models/meshes/trees/tree_a.tscn" id="5_s8mfa"]
+[ext_resource type="AudioStream" uid="uid://cwye2qxhyhr2t" path="res://worlds/level/music/wind ambience TWO.mp3" id="6_s8mfa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s8mfa"]
+font_size = 47
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="main_menu" type="Node3D"]
+
+[node name="ui" type="CanvasLayer" parent="."]
+script = ExtResource("2_f5okj")
+scene_to_load = "uid://bglycd26ajbsc"
+options_menu = "uid://cvpht4d44c3si"
+
+[node name="main_menu" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -249.5
+offset_bottom = 249.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="button_menu" type="PanelContainer" parent="ui/main_menu"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 221.5
+offset_right = 221.0
+offset_bottom = 415.5
+
+[node name="background" type="Panel" parent="ui/main_menu/button_menu"]
+layout_mode = 2
+theme_type_variation = &"DarkenPanel"
+
+[node name="margin" type="MarginContainer" parent="ui/main_menu/button_menu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/main_menu/button_menu/margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="start" type="Button" parent="ui/main_menu/button_menu/margin/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Start
+"
+
+[node name="option" type="Button" parent="ui/main_menu/button_menu/margin/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Options"
+
+[node name="quit" type="Button" parent="ui/main_menu/button_menu/margin/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Quit
+"
+
+[node name="title" type="Label" parent="ui/main_menu"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 129.5
+offset_right = 221.0
+offset_bottom = 214.5
+text = "Soarfall"
+label_settings = ExtResource("3_o5w3e")
+
+[node name="credits_order" type="VBoxContainer" parent="ui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -300.0
+offset_right = 370.0
+offset_bottom = -21.0
+grow_vertical = 0
+
+[node name="credits_title" type="Label" parent="ui/credits_order"]
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_s8mfa")
+vertical_alignment = 1
+
+[node name="credits" type="PanelContainer" parent="ui/credits_order"]
+layout_mode = 2
+
+[node name="background" type="Panel" parent="ui/credits_order/credits"]
+layout_mode = 2
+theme_type_variation = &"DarkenPanel"
+
+[node name="margin" type="MarginContainer" parent="ui/credits_order/credits"]
+layout_mode = 2
+
+[node name="text" type="Label" parent="ui/credits_order/credits/margin"]
+layout_mode = 2
+text = "Lead Developer - Spyridon Passas
+Programmer - Spyridon Passas
+3D Art - Spyridon Passas, Kenn
+Music & SFX - Titus
+UI Art - Kenney"
+vertical_alignment = 1
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 2.37505, 1.97145, 8.52219)
+current = true
+
+[node name="island" parent="." instance=ExtResource("3_1x3cv")]
+
+[node name="island2" parent="." instance=ExtResource("3_1x3cv")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 4.34306, 1.48947, -15.2871)
+
+[node name="island3" parent="." instance=ExtResource("3_1x3cv")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -25.2046, 3.86007, -6.83355)
+
+[node name="enviroment_fx" parent="." instance=ExtResource("4_jc45y")]
+
+[node name="directional_light" parent="enviroment_fx" index="0"]
+transform = Transform3D(1, 0, 0, 0, -0.965926, 0.258819, 0, -0.258819, -0.965926, 0, 0, 0)
+
+[node name="tree" parent="." instance=ExtResource("5_s8mfa")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.1497, 0.945891, 1.26742)
+
+[node name="tree2" parent="." instance=ExtResource("5_s8mfa")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -22.7638, 4.6595, -9.23981)
+
+[node name="tree3" parent="." instance=ExtResource("5_s8mfa")]
+transform = Transform3D(1, 0, 1.73205, 0, 2, 0, -1.73205, 0, 1, 4.95812, 2.49509, -12.398)
+
+[node name="ambiance" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_s8mfa")
+volume_db = -11.886
+autoplay = true
+bus = &"SFX"
+
+[editable path="enviroment_fx"]

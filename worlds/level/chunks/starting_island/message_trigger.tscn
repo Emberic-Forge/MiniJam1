@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf1k47e0vmr5m"]
+
+[ext_resource type="Script" uid="uid://c2gc5ypyfqdeb" path="res://worlds/level/chunks/starting_island/scripts/message_trigger.gd" id="1_md6dr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cibru"]
+size = Vector3(5.04492, 2.5943, 4.85547)
+
+[node name="message_trigger" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_md6dr")
+
+[node name="area" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24622, 0)
+shape = SubResource("BoxShape3D_cibru")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

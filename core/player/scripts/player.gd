@@ -10,6 +10,7 @@ class_name Player extends CharacterBody3D
 @export var jump_height : float = 2.0
 @export_range(0.0, 10.0, 0.1) var air_acceleration : float = 1.0
 @export_range(0.0, 10.0, 0.1) var air_decceleration : float = 1.0
+@export var fall_multiplier : float = 1.3
 
 @export_group("Camera Settings")
 @export var mouse_sensitivity : float = 0.5
@@ -22,11 +23,17 @@ class_name Player extends CharacterBody3D
 @export_range(0,10,0.01) var air_anim_transition_time : float = 5
 @export_range(0,10,0.01) var transition_between_air_and_ground_time : float = 5
 
+@export_group("Camera Settings")
+@export var camera : InterpolatedCamera3D
+
+@export_group("Other")
+@export var death_duration_in_seconds : float = 3.0
+
 @onready var camera_base : SpringArm3D = $camera_base
-@onready var camera : Camera3D = $camera_base/camera
 @onready var model : Node3D = $model
 @onready var animation_tree : AnimationTree = $model/player/AnimationTree
 @onready var body_shape : CollisionShape3D  = $body_shape
+@onready var camera_anchor : Node3D = $camera_base/camera_anchor
 
 var camera_input_direction : Vector2 = Vector2.ZERO
 var sprint_flag : bool
@@ -34,6 +41,8 @@ var sprint_flag : bool
 var ground_walk_blend_value : float
 var air_anim_blend_value : float
 var transition_blend_value : float
+
+var input_state_flag : bool = true
 
 signal on_interact
 
@@ -56,11 +65,11 @@ func _is_gravity_flipped() -> bool:
 func _ready() -> void:
 	CheckpointSystem.register_player(self)
 
-func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif event.is_action_pressed("escape"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	camera.set_camera_anchor(camera_anchor)
+	camera.set_up_direction(up_direction)
+	camera.set_focus_point(self)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 func _unhandled_input(event : InputEvent) -> void:
 	var is_camera_motion := (
@@ -72,15 +81,21 @@ func _unhandled_input(event : InputEvent) -> void:
 		camera_input_direction = event.screen_relative * mouse_sensitivity
 
 func _process(delta : float) -> void:
-	_handle_camera_control(delta)
-	_update_animation_tree(delta)
+	if input_state_flag:
+		_handle_camera_control(delta)
+		_update_animation_tree(delta)
+		_handle_interactions()
+
 	_handle_model_orientation()
-	_handle_interactions()
+
+	if Input.is_action_just_pressed("escape"):
+		PauseSystem.pause()
 
 func _physics_process(delta : float) -> void:
 	_handle_gravity(delta)
-	_handle_jump()
-	_handle_movement(delta)
+	if input_state_flag:
+		_handle_jump()
+		_handle_movement(delta)
 
 	_DEBUG_force_respawn()
 
@@ -130,6 +145,7 @@ func _handle_camera_control(delta : float) -> void:
 
 	camera_input_direction = Vector2.ZERO
 
+
 func _handle_movement(delta : float) -> void:
 	var parallelInput := Input.get_axis("move_left","move_right")
 	var forwardInput := Input.get_axis("move_forward", "move_backward")
@@ -178,10 +194,19 @@ func _handle_gravity(delta : float) -> void:
 	var gravity : float = _get_gravity_amount()
 	var gravity_direction : Vector3 = _get_gravity_direction()
 
-	var target_motion = gravity_direction * gravity * delta
+	var is_going_down := velocity.dot(gravity_direction) >= -0.1
+	var target_gravity = gravity * (fall_multiplier if is_going_down else 1)
+	var target_motion = gravity_direction * target_gravity * delta
 	velocity += target_motion
+	velocity.limit_length(30)
 
 func _flip_gravity() -> Vector3:
+	reset_velocity()
+	camera.override_camera()
+	camera.look_at_node(self, true)
+	get_tree().create_timer(3.0).timeout.connect(func():
+		camera.reset_camera()
+		)
 	var gravity_direction : Vector3 = _get_gravity_direction()
 	print("Old Gravity: (%f, %f, %f)" % [gravity_direction.x, gravity_direction.y, gravity_direction.z])
 	var new_gravity_direction = gravity_direction * -1
@@ -206,7 +231,35 @@ func rotate_camera_towards(new_rotation : Vector3) -> void:
 
 func set_gravity_direction(new_gravity_direction : Vector3) -> void:
 	_set_gravity_direction(new_gravity_direction)
+	_handle_model_orientation()
 	up_direction = -new_gravity_direction
+	camera.set_up_direction(up_direction)
 	print("Gravity has been overriden: (%f, %f, %f)" % [new_gravity_direction.x, new_gravity_direction.y, new_gravity_direction.z])
 	var gravity_direction = _get_gravity_direction()
 	print("Gravity (%f, %f, %f), Dot Product: %f" % [gravity_direction.x, gravity_direction.y, gravity_direction.z, gravity_direction.dot(Vector3.DOWN)])
+
+func die() -> void:
+	camera.override_camera()
+	camera.look_at_node(self)
+	camera.move_camera_towards_point(global_position)
+	disable_input()
+	get_tree().create_timer(death_duration_in_seconds).timeout.connect(func():
+		enable_input()
+		camera.reset_camera()
+		CheckpointSystem.reload_to_latest_saved_game_state()
+		)
+	pass
+
+
+func disable_input() -> void:
+	set_process_input(false)
+	input_state_flag = false
+
+func enable_input() -> void:
+	set_process_input(true)
+	input_state_flag = true
+
+
+
+func reset_velocity() -> void:
+	velocity = Vector3.ZERO

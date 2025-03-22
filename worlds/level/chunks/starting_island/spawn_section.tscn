@@ -1,65 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt1k6ol76tbil"]
+[gd_scene load_steps=5 format=3 uid="uid://dt1k6ol76tbil"]
 
 [ext_resource type="PackedScene" uid="uid://d3362qk1sfw1r" path="res://core/checkpoint_system/checkpoint.tscn" id="1_chpde"]
+[ext_resource type="PackedScene" uid="uid://dbu7xpn71ode2" path="res://worlds/level/assets/islands/start_island.tscn" id="2_cibru"]
+[ext_resource type="PackedScene" uid="uid://bf1k47e0vmr5m" path="res://worlds/level/chunks/starting_island/message_trigger.tscn" id="3_o1ghc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_plphq"]
 size = Vector3(3.64941, 2.69092, 2.84766)
 
 [node name="spawn_section" type="Node3D"]
-
-[node name="floor" type="CSGCombiner3D" parent="."]
-use_collision = true
-
-[node name="box" type="CSGBox3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.527924, -2.44067, -1.04272)
-size = Vector3(11.4307, 5.88135, 11.2925)
-
-[node name="box2" type="CSGBox3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22133, -2.56763, -2.65031)
-size = Vector3(2.6935, 6.13525, 8.15796)
-
-[node name="box3" type="CSGBox3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.86596, -1.90371, -9.1408)
-size = Vector3(6.249, 7.47217, 10.602)
-
-[node name="box4" type="CSGBox3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5217, -2.99193, -17.2565)
-size = Vector3(7.61983, 6.49609, 13.6562)
-
-[node name="walls" type="CSGCombiner3D" parent="."]
-use_collision = true
-
-[node name="box" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0439148, 0.621979, 7.32318)
-size = Vector3(19.2913, 9.25153, 5.41394)
-
-[node name="box6" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.96231, 0.621979, -2.61691)
-size = Vector3(7.59048, 9.25153, 15.2612)
-
-[node name="box7" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2529, 0.62198, -11.7723)
-size = Vector3(7.59048, 9.25153, 9.94748)
-
-[node name="box8" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0105658, -0.103011, -17.9655)
-size = Vector3(7.59048, 7.80154, 12.8102)
-
-[node name="box2" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23812, 0.618561, 3.94632)
-size = Vector3(8.38826, 9.24469, 5.41394)
-
-[node name="box3" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7174, 0.615265, -1.17042)
-size = Vector3(8.38826, 9.2381, 5.41394)
-
-[node name="box4" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1333, 1.52618, -13.9996)
-size = Vector3(8.38826, 11.0599, 20.4379)
-
-[node name="box5" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72308, 3.09543, -9.7598)
-size = Vector3(6.80678, 14.1984, 6.93468)
 
 [node name="checkpoint" parent="." instance=ExtResource("1_chpde")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.13596, 0.733557, -22.0726)
@@ -67,3 +15,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.13596, 0.733557, -22.0726)
 [node name="area" type="CollisionShape3D" parent="checkpoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845459, 0)
 shape = SubResource("BoxShape3D_plphq")
+
+[node name="start_island" parent="." instance=ExtResource("2_cibru")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="message_trigger" parent="." instance=ExtResource("3_o1ghc")]
+message = "Move: [w] [a] [s] [d] -Look: [mouse_move]"
+
+[node name="area" parent="message_trigger" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01608, 2.07458, 0.342053)
+debug_color = Color(0.975462, 0, 0.422743, 1)
+
+[node name="message_trigger2" parent="." instance=ExtResource("3_o1ghc")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5.28381, -9.53674e-07, -3.41898)
+message = "Jump with [space]"
+
+[node name="area" parent="message_trigger2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01608, 2.07458, 0.342053)
+debug_color = Color(0.975462, 0, 0.422743, 1)
+
+[editable path="message_trigger"]
+[editable path="message_trigger2"]

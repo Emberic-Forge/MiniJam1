@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4edycjiwf7ji"]
+
+[ext_resource type="Script" uid="uid://bnqqtbwqrs6jm" path="res://core/pause_system/scripts/pause_system.gd" id="1_sowmf"]
+
+[node name="pause_system" type="Node"]
+script = ExtResource("1_sowmf")

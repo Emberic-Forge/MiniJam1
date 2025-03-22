@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb38sokhb7y2l"]
+
+[ext_resource type="Theme" uid="uid://cbw7nqiyn5gxt" path="res://settings/ui/default.tres" id="1_202js"]
+
+[node name="ui_gym" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_202js")
+
+[node name="test_panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 5.0
+offset_right = 237.0
+offset_bottom = 219.0
+
+[node name="test_margin" type="MarginContainer" parent="test_panel"]
+layout_mode = 2
+
+[node name="order" type="VBoxContainer" parent="test_panel/test_margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="menu_button" type="Button" parent="test_panel/test_margin/order"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Lorem Ipsum"
+
+[node name="menu_button2" type="Button" parent="test_panel/test_margin/order"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Lorem Ipsum"
+
+[node name="menu_button3" type="Button" parent="test_panel/test_margin/order"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Lorem Ipsum"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 6.0
+offset_right = 450.0
+offset_bottom = 219.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 2
+offset_left = 31.0
+offset_top = 63.0
+offset_right = 168.0
+offset_bottom = 85.0
+text = "Lorem Ipsum"
+horizontal_alignment = 1
+
+[node name="RichLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 95.0
+offset_right = 183.0
+offset_bottom = 194.0
+bbcode_enabled = true
+text = "this is a [color=green]test[/color]
+this is an [i] italic text [/i]"
+horizontal_alignment = 1
+vertical_alignment = 1

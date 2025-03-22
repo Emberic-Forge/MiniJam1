@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpkn1cf3ctwks"]
+
+[ext_resource type="PackedScene" uid="uid://bc1uh6acvnam1" path="res://mechanics/collectable/models/collectable.glb" id="1_hewwf"]
+[ext_resource type="Script" uid="uid://c6ii2efwefwqc" path="res://mechanics/collectable/scripts/collectable.gd" id="2_he5fk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_he5fk"]
+radius = 3.16981
+
+[node name="collectable" instance=ExtResource("1_hewwf")]
+script = ExtResource("2_he5fk")
+
+[node name="player_detector" type="Area3D" parent="." index="3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="area" type="CollisionShape3D" parent="player_detector" index="0"]
+shape = SubResource("SphereShape3D_he5fk")
+
+[connection signal="body_entered" from="player_detector" to="." method="_on_player_detector_body_entered"]

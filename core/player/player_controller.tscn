@@ -1,0 +1,81 @@
+[gd_scene load_steps=14 format=3 uid="uid://b6qctueeaf66m"]
+
+[ext_resource type="Script" uid="uid://chmt6qktc8ope" path="res://core/player/scripts/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://h2lcwj54xdhx" path="res://core/player/model/player_model.tscn" id="2_h46vi"]
+[ext_resource type="Script" uid="uid://b63oe58x33n45" path="res://core/player/hud/scripts/hud.gd" id="3_wdenx"]
+[ext_resource type="Script" uid="uid://do2wa658frjf5" path="res://core/player/hud/scripts/message_prompt.gd" id="4_g6yxv"]
+[ext_resource type="Texture2D" uid="uid://c3fie58olv8y" path="res://ui/prompts/keyboard & mouse/Double/keyboard_w.png" id="5_7rr0w"]
+[ext_resource type="Texture2D" uid="uid://suasd3hq386j" path="res://ui/prompts/keyboard & mouse/Double/keyboard_a.png" id="6_q6s1l"]
+[ext_resource type="Texture2D" uid="uid://ci1vbg14scx10" path="res://ui/prompts/keyboard & mouse/Double/keyboard_s.png" id="7_wlkew"]
+[ext_resource type="Texture2D" uid="uid://6vihcut2q5kk" path="res://ui/prompts/keyboard & mouse/Double/keyboard_d.png" id="8_sy88f"]
+[ext_resource type="Texture2D" uid="uid://dhnd775s352o0" path="res://ui/prompts/keyboard & mouse/Double/keyboard_space.png" id="9_l8qd6"]
+[ext_resource type="Texture2D" uid="uid://djvyq32frtv8g" path="res://ui/prompts/keyboard & mouse/Double/keyboard_e.png" id="10_lrpp6"]
+[ext_resource type="Texture2D" uid="uid://batj6yc7xwxul" path="res://ui/prompts/keyboard & mouse/Double/mouse_move.png" id="11_wlkew"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+height = 1.82554
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h46vi"]
+
+[node name="player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_oul6g")
+walk_distance_per_second = 0.1
+sprint_distance_per_second = 0.3
+acceleration = 5.0
+decceleration = 3.0
+jump_height = 1.5
+air_acceleration = 0.6
+air_decceleration = 0.4
+sprint_anim_transition_time = 10.0
+air_anim_transition_time = 7.5
+
+[node name="body_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.108359, 0)
+shape = SubResource("CapsuleShape3D_kqu6x")
+debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="camera_base" type="SpringArm3D" parent="."]
+shape = SubResource("BoxShape3D_h46vi")
+spring_length = 10.0
+
+[node name="camera_anchor" type="Node3D" parent="camera_base"]
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="player" parent="model" instance=ExtResource("2_h46vi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01647, 0)
+
+[node name="hud" type="CanvasLayer" parent="."]
+script = ExtResource("3_wdenx")
+
+[node name="message_prompt" type="RichTextLabel" parent="hud"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = 81.0
+offset_right = 353.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Lorem Ipsum"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_g6yxv")
+prompts = Dictionary[String, CompressedTexture2D]({
+"a": ExtResource("6_q6s1l"),
+"d": ExtResource("8_sy88f"),
+"interact": ExtResource("10_lrpp6"),
+"mouse_move": ExtResource("11_wlkew"),
+"s": ExtResource("7_wlkew"),
+"space": ExtResource("9_l8qd6"),
+"w": ExtResource("5_7rr0w")
+})
+
+[editable path="model/player"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b1f67onfjeoap"]
 
-[ext_resource type="PackedScene" uid="uid://b6qctueeaf66m" path="res://core/player/player.tscn" id="1_5ph0x"]
+[ext_resource type="PackedScene" uid="uid://6n03ksi6eq6k" path="res://core/player/player.tscn" id="1_5ph0x"]
 [ext_resource type="PackedScene" uid="uid://d3362qk1sfw1r" path="res://core/checkpoint_system/checkpoint.tscn" id="2_0eedv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0eedv"]
@@ -21,8 +21,6 @@ size = Vector3(4.76855, 2.77832, 4.22559)
 
 [node name="test_player" type="Node3D"]
 
-[node name="player" parent="." instance=ExtResource("1_5ph0x")]
-
 [node name="test_dir_light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 shadow_enabled = true
@@ -35,3 +33,5 @@ environment = SubResource("Environment_gykwn")
 [node name="area" type="CollisionShape3D" parent="checkpoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88916, 0)
 shape = SubResource("BoxShape3D_aho2y")
+
+[node name="player" parent="." instance=ExtResource("1_5ph0x")]

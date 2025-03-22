@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn4u5gu6vby7i"]
+
+[ext_resource type="MeshLibrary" uid="uid://c8jumj2000ici" path="res://worlds/level/resources/test_library.tres" id="1_h6tid"]
+
+[node name="gameplay_gym" type="Node3D"]
+
+[node name="test" type="GridMap" parent="."]
+mesh_library = ExtResource("1_h6tid")

@@ -1,0 +1,77 @@
+[gd_scene load_steps=15 format=3 uid="uid://dhtu1nispxnha"]
+
+[ext_resource type="Script" uid="uid://mcmbliry6tfd" path="res://addons/proton_scatter/src/scatter.gd" id="1_lsdqx"]
+[ext_resource type="Script" uid="uid://8pk8e67wkyfm" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_c0pno"]
+[ext_resource type="Script" uid="uid://bi0ojtoo3sett" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="3_weso4"]
+[ext_resource type="Script" uid="uid://cp4my8aady4gi" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="4_qf3h6"]
+[ext_resource type="Script" uid="uid://ckoa2tuhhxod0" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="5_evew2"]
+[ext_resource type="Script" uid="uid://4d08w7rnkdsw" path="res://addons/proton_scatter/src/modifiers/offset_scale.gd" id="6_ib3q5"]
+[ext_resource type="Script" uid="uid://6luychufkoqt" path="res://addons/proton_scatter/src/modifiers/randomize_rotation.gd" id="7_cuc4b"]
+[ext_resource type="Script" uid="uid://dcdmkb43ud21o" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="8_5exvt"]
+
+[sub_resource type="Resource" id="Resource_6f5ry"]
+script = ExtResource("4_qf3h6")
+amount = 150
+enabled = true
+override_global_seed = true
+custom_seed = 0
+restrict_height = false
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_votkj"]
+script = ExtResource("5_evew2")
+ray_direction = Vector3(0, 0, 1)
+ray_length = 10.0
+ray_offset = 1.0
+remove_points_on_miss = true
+align_with_collision_normal = true
+max_slope = 90.0
+collision_mask = 1
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_agrho"]
+script = ExtResource("6_ib3q5")
+operation = 1
+scale = Vector3(5, 5, 5)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_e228s"]
+script = ExtResource("7_cuc4b")
+rotation = Vector3(360, 360, 360)
+snap_angle = Vector3(0, 0, 0)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_6o4cj"]
+script = ExtResource("8_5exvt")
+position = Vector3(0, 0, 0)
+rotation = Vector3(360, 360, 360)
+scale = Vector3(0, 0, 0)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_3ob4e"]
+script = ExtResource("2_c0pno")
+stack = Array[ExtResource("3_weso4")]([SubResource("Resource_6f5ry"), SubResource("Resource_votkj"), SubResource("Resource_agrho"), SubResource("Resource_e228s"), SubResource("Resource_6o4cj")])
+
+[node name="stone_wall" type="Node3D"]
+script = ExtResource("1_lsdqx")
+modifier_stack = SubResource("Resource_3ob4e")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://mcmbliry6tfd"

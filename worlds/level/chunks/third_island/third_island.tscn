@@ -1,17 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwahw71jp27cu"]
+[gd_scene load_steps=9 format=3 uid="uid://dwahw71jp27cu"]
 
 [ext_resource type="PackedScene" uid="uid://cvuo41gy5g4dg" path="res://worlds/level/chunks/third_island/start_section.tscn" id="1_j8vll"]
 [ext_resource type="PackedScene" uid="uid://c45selfni4ba6" path="res://worlds/level/chunks/third_island/upside_down_section.tscn" id="3_a7tbu"]
 [ext_resource type="PackedScene" uid="uid://jirwfdahpf2l" path="res://worlds/level/chunks/third_island/trial_section.tscn" id="4_a7tbu"]
-[ext_resource type="PackedScene" uid="uid://b1f67onfjeoap" path="res://worlds/test_world/prefabs/test_player.tscn" id="4_y8dji"]
 [ext_resource type="PackedScene" uid="uid://dmqd85un37v47" path="res://worlds/level/chunks/third_island/end_section.tscn" id="5_1c8wv"]
+[ext_resource type="PackedScene" uid="uid://d3362qk1sfw1r" path="res://core/checkpoint_system/checkpoint.tscn" id="5_ykvc4"]
+[ext_resource type="Script" uid="uid://bcu2uxkhy3lq7" path="res://worlds/level/chunks/third_island/scripts/force_camera_look_at_goal.gd" id="7_1euoc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1euoc"]
+size = Vector3(23.468, 4.11621, 15.0018)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ykvc4"]
+size = Vector3(185.993, 9.31348, 182.051)
 
 [node name="third_island" type="Node3D"]
 
 [node name="start_section" parent="." instance=ExtResource("1_j8vll")]
-
-[node name="test_player" parent="." instance=ExtResource("4_y8dji")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.0766, 2.70241, -104.647)
 
 [node name="upside_down_section" parent="." instance=ExtResource("3_a7tbu")]
 transform = Transform3D(-1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 0, 0, 1, -67.4951, 25.9529, -8.07982)
@@ -21,3 +25,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 0, -108)
 
 [node name="end_section" parent="." instance=ExtResource("5_1c8wv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.8134, 262.54, -65.523)
+
+[node name="checkpoint" parent="." instance=ExtResource("5_ykvc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.8778, 1.00269, -102.346)
+
+[node name="area" type="CollisionShape3D" parent="checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50829, 1.55811, 0.923248)
+shape = SubResource("BoxShape3D_1euoc")
+
+[node name="force_camera_look_at_goal" type="Area3D" parent="." node_paths=PackedStringArray("node_to_look_at")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.2678, 133.096, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_1euoc")
+node_to_look_at = NodePath("../end_section/goal/area/focus_point")
+
+[node name="shape" type="CollisionShape3D" parent="force_camera_look_at_goal"]
+shape = SubResource("BoxShape3D_ykvc4")
+
+[connection signal="body_entered" from="force_camera_look_at_goal" to="force_camera_look_at_goal" method="_on_body_entered"]
+
+[editable path="start_section"]
+[editable path="start_section/moving_platform"]
+[editable path="start_section/moving_platform/moving_node"]
+[editable path="start_section/moving_platform2"]
+[editable path="start_section/moving_platform2/moving_node"]
+[editable path="start_section/moving_platform3"]
+[editable path="start_section/moving_platform3/moving_node"]
+[editable path="trial_section"]
+[editable path="trial_section/invisible_section/moving_platform"]
+[editable path="trial_section/invisible_section/moving_platform/moving_node"]
+[editable path="trial_section/invisible_section/moving_platform2"]
+[editable path="trial_section/invisible_section/moving_platform2/moving_node"]
+[editable path="trial_section/invisible_section/moving_platform3"]
+[editable path="trial_section/invisible_section/moving_platform3/moving_node"]
+[editable path="end_section"]

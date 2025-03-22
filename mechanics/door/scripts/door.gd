@@ -5,5 +5,6 @@ class_name Door extends Node3D
 func _ready() -> void:
 	animation_player.play("Close")
 
-func open_door() -> void:
+func open_door() -> float:
 	animation_player.play("Open")
+	return animation_player.current_animation_length

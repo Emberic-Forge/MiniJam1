@@ -7,10 +7,10 @@ func _ready() -> void:
 	_spawn_player.call_deferred(player_scene)
 
 func _spawn_player(player_scene : PackedScene) -> void:
-	var player_ins = player_scene.instantiate() as Player
-	self.get_tree().root.add_child(player_ins)
+	var player_ins = player_scene.instantiate()
+	get_parent().get_parent().add_child(player_ins)
 
-	player_ins.set_gravity_direction(global_basis.z)
+	player_ins.get_child(0).set_gravity_direction(global_basis.z)
 	player_ins.global_position = global_position
 
 	CheckpointSystem.snapshot_game_state(self)

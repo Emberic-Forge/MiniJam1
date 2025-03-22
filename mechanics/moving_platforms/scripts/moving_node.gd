@@ -12,15 +12,8 @@ var move_flag : bool = true
 
 
 func _ready() -> void:
+	reset()
 
-	target_point = start_point.position
-	if start_delay_in_seconds > 0:
-		move_flag = false
-		get_tree().create_timer(start_delay_in_seconds).timeout.connect(func():
-			move_flag = true
-			)
-	else:
-		move_flag = true
 
 func _physics_process(delta : float) -> void:
 	var dir = (target_point - position).normalized()
@@ -41,3 +34,13 @@ func _determine_target_point() -> void:
 	var end_test := (end_point.position - target_point).length()
 
 	target_point = end_point.position if start_test < end_test else start_point.position
+
+func reset() -> void:
+	target_point = start_point.position
+	if start_delay_in_seconds > 0:
+		move_flag = false
+		get_tree().create_timer(start_delay_in_seconds).timeout.connect(func():
+			move_flag = true
+			)
+	else:
+		move_flag = true

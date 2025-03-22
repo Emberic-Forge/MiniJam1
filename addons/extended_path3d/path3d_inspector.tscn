@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dckgr4ei1o50x"]
+
+[node name="path3d_inspector" type="Control"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="order" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="x_mirror" type="Button" parent="order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mirror X"
+
+[node name="y_mirror" type="Button" parent="order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mirror Y"
+
+[node name="z_mirror" type="Button" parent="order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mirror Z"

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuwmnssb6bm4v"]
+
+[ext_resource type="PackedScene" uid="uid://bnydpb760vy50" path="res://worlds/level/models/meshes/grass/grassy_floor.glb" id="1_1prcf"]
+
+[node name="grassy_floor2" instance=ExtResource("1_1prcf")]

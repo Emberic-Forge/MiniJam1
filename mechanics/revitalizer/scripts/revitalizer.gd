@@ -23,8 +23,10 @@ var local_timer : Timer
 static var is_one_active : bool
 
 func _ready() -> void:
+	can_be_reset = true
 	_kill_objects(null)
 	on_player_interact.connect(_revive_objects)
+	on_reset.connect(manually_kill_objects)
 
 	var material = orb.mesh.surface_get_material(0)
 	orb.set_surface_override_material(0,material.duplicate())

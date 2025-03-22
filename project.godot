@@ -11,12 +11,27 @@ config_version=5
 [application]
 
 config/name="MiniJam1"
+run/main_scene="uid://e1ipmhsa6ojb"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 CheckpointSystem="*res://core/checkpoint_system/checkpoint_system.tscn"
+PauseSystem="*res://core/pause_system/pause_system.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/extended_path3d/plugin.cfg", "res://addons/goshapes/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://cbw7nqiyn5gxt"
 
 [input]
 

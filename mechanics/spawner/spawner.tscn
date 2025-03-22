@@ -4,3 +4,4 @@
 
 [node name="spawner" type="Node3D"]
 script = ExtResource("1_tbxq2")
+player_file_path = "uid://6n03ksi6eq6k"

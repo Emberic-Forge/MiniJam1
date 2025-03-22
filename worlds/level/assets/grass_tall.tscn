@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd8j7ky4bmcyk"]
+
+[ext_resource type="ArrayMesh" uid="uid://c12cvhuab6klg" path="res://worlds/level/models/meshes/grass/grass_tall.res" id="1_j82c0"]
+[ext_resource type="Material" uid="uid://ybocq54m23we" path="res://worlds/level/models/meshes/grass/materials/grass.tres" id="1_jf1ah"]
+
+[node name="grass_tall" type="MeshInstance3D"]
+material_override = ExtResource("1_jf1ah")
+mesh = ExtResource("1_j82c0")

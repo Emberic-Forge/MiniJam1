@@ -1,0 +1,183 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvpht4d44c3si"]
+
+[ext_resource type="Script" uid="uid://do3ahv8tuigd" path="res://menu/scripts/options_menu.gd" id="1_swaur"]
+[ext_resource type="LabelSettings" uid="uid://c2ux3ct7kqsps" path="res://settings/ui/labels/title.tres" id="2_vsewd"]
+[ext_resource type="Script" uid="uid://hpb0rmvgn1es" path="res://menu/options/scripts/volume_slider.gd" id="3_h1dxb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wjlk6"]
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="options_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_swaur")
+
+[node name="order" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.5
+offset_top = -198.5
+offset_right = 247.5
+offset_bottom = 198.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="order"]
+layout_mode = 2
+text = "Options"
+label_settings = ExtResource("2_vsewd")
+horizontal_alignment = 1
+
+[node name="contents" type="PanelContainer" parent="order"]
+layout_mode = 2
+
+[node name="background" type="Panel" parent="order/contents"]
+layout_mode = 2
+theme_type_variation = &"DarkenPanel"
+
+[node name="margin" type="MarginContainer" parent="order/contents"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="order" type="VBoxContainer" parent="order/contents/margin"]
+layout_mode = 2
+
+[node name="audio" type="VBoxContainer" parent="order/contents/margin/order"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/audio"]
+layout_mode = 2
+text = "Audio"
+label_settings = SubResource("LabelSettings_wjlk6")
+
+[node name="margin" type="MarginContainer" parent="order/contents/margin/order/audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="order/contents/margin/order/audio/margin"]
+layout_mode = 2
+
+[node name="master" type="HBoxContainer" parent="order/contents/margin/order/audio/margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/audio/margin/VBoxContainer/master"]
+layout_mode = 2
+text = "Master"
+
+[node name="spacing" type="Control" parent="order/contents/margin/order/audio/margin/VBoxContainer/master"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="audio_master" type="HSlider" parent="order/contents/margin/order/audio/margin/VBoxContainer/master"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_h1dxb")
+bus_name = "Master"
+
+[node name="music" type="HBoxContainer" parent="order/contents/margin/order/audio/margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/audio/margin/VBoxContainer/music"]
+layout_mode = 2
+text = "Music"
+
+[node name="spacing" type="Control" parent="order/contents/margin/order/audio/margin/VBoxContainer/music"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="audio_music" type="HSlider" parent="order/contents/margin/order/audio/margin/VBoxContainer/music"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_h1dxb")
+bus_name = "Music"
+
+[node name="sfx" type="HBoxContainer" parent="order/contents/margin/order/audio/margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/audio/margin/VBoxContainer/sfx"]
+layout_mode = 2
+text = "SFX"
+
+[node name="spacing" type="Control" parent="order/contents/margin/order/audio/margin/VBoxContainer/sfx"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="audio_sfx" type="HSlider" parent="order/contents/margin/order/audio/margin/VBoxContainer/sfx"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_h1dxb")
+bus_name = "SFX"
+
+[node name="mouse" type="VBoxContainer" parent="order/contents/margin/order"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/mouse"]
+layout_mode = 2
+text = "Mouse"
+label_settings = SubResource("LabelSettings_wjlk6")
+
+[node name="margin" type="MarginContainer" parent="order/contents/margin/order/mouse"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="order/contents/margin/order/mouse/margin"]
+layout_mode = 2
+
+[node name="master" type="HBoxContainer" parent="order/contents/margin/order/mouse/margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="order/contents/margin/order/mouse/margin/VBoxContainer/master"]
+layout_mode = 2
+text = "Sensitivity"
+
+[node name="spacing" type="Control" parent="order/contents/margin/order/mouse/margin/VBoxContainer/master"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="mouse_sens" type="HSlider" parent="order/contents/margin/order/mouse/margin/VBoxContainer/master"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+
+[node name="back" type="Button" parent="order"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Back"

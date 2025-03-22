@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmyt7bxlo1ipr"]
+
+[ext_resource type="Material" uid="uid://ybocq54m23we" path="res://worlds/level/models/meshes/grass/materials/grass.tres" id="1_oxn6o"]
+[ext_resource type="ArrayMesh" uid="uid://djfu56xly6uun" path="res://worlds/level/models/meshes/grass/grass_short.res" id="2_vrlyw"]
+
+[node name="grass_short" type="MeshInstance3D"]
+material_override = ExtResource("1_oxn6o")
+cast_shadow = 0
+mesh = ExtResource("2_vrlyw")

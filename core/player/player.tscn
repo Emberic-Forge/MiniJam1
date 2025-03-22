@@ -1,53 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6qctueeaf66m"]
+[gd_scene load_steps=4 format=3 uid="uid://6n03ksi6eq6k"]
 
-[ext_resource type="Script" uid="uid://chmt6qktc8ope" path="res://core/player/scripts/player.gd" id="1_oul6g"]
-[ext_resource type="PackedScene" uid="uid://h2lcwj54xdhx" path="res://core/player/model/player_model.tscn" id="2_h46vi"]
+[ext_resource type="PackedScene" uid="uid://b6qctueeaf66m" path="res://core/player/player_controller.tscn" id="1_bq184"]
+[ext_resource type="Script" uid="uid://k5urv6ln1ihd" path="res://core/player/scripts/camera.gd" id="2_h46vi"]
+[ext_resource type="PackedScene" uid="uid://if1tr2xdfhsp" path="res://menu/pause_menu.tscn" id="3_ll17t"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
-height = 1.82554
+[node name="player" type="Node3D"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_h46vi"]
+[node name="player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_bq184")]
+sprint_distance_per_second = 0.18
+acceleration = 8.0
+decceleration = 10.0
+jump_height = 1.6
+air_acceleration = 1.5
+air_decceleration = 0.8
+fall_multiplier = 1.5
+air_anim_transition_time = 5.0
+camera = NodePath("../camera")
 
-[node name="player" type="CharacterBody3D"]
-collision_layer = 2
-script = ExtResource("1_oul6g")
-walk_distance_per_second = 0.1
-sprint_distance_per_second = 0.3
-acceleration = 5.0
-decceleration = 3.0
-jump_height = 1.5
-air_acceleration = 0.6
-air_decceleration = 0.4
-sprint_anim_transition_time = 10.0
-air_anim_transition_time = 7.5
+[node name="camera" type="Camera3D" parent="."]
+script = ExtResource("2_h46vi")
+camera_tracking_speed = 6.0
 
-[node name="body_shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.108359, 0)
-shape = SubResource("CapsuleShape3D_kqu6x")
-debug_color = Color(0, 0.6, 0.701961, 1)
-
-[node name="camera_base" type="SpringArm3D" parent="."]
-shape = SubResource("BoxShape3D_h46vi")
-spring_length = 10.0
-
-[node name="camera" type="Camera3D" parent="camera_base"]
-current = true
-
-[node name="model" type="Node3D" parent="."]
-
-[node name="player" parent="model" instance=ExtResource("2_h46vi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01647, 0)
-
-[node name="Skeleton3D" parent="model/player/Armature" index="0"]
-bones/0/rotation = Quaternion(-0.0142318, 1.19197e-07, -1.69656e-09, 0.999899)
-bones/1/rotation = Quaternion(0.706558, -0.0278575, 0.706558, -0.0278567)
-bones/1/scale = Vector3(1, 1, 1.00003)
-bones/2/rotation = Quaternion(4.96036e-08, -5.41825e-08, -0.0863649, 0.996264)
-bones/3/rotation = Quaternion(0.0169445, 7.40909e-14, 4.03543e-09, 0.999857)
-bones/4/rotation = Quaternion(0.998053, -0.000372578, 0.0620856, -0.00598934)
-bones/5/rotation = Quaternion(4.67465e-10, -1.8681e-09, 1.60185e-10, 1)
-bones/6/rotation = Quaternion(-0.706558, -0.0278573, 0.706558, 0.0278565)
-bones/6/scale = Vector3(1, 1, 1.00003)
-bones/7/rotation = Quaternion(3.08238e-08, 5.52448e-08, 0.0863649, 0.996264)
-
-[editable path="model/player"]
+[node name="pause_menu" parent="." instance=ExtResource("3_ll17t")]

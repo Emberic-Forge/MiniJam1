@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnswxyjyj7tvw"
+path="res://.godot/imported/the bones.mp3-9dc3eeebfdbc8b156f48b4f738e8e205.mp3str"
+
+[deps]
+
+source_file="res://worlds/level/music/the bones.mp3"
+dest_files=["res://.godot/imported/the bones.mp3-9dc3eeebfdbc8b156f48b4f738e8e205.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

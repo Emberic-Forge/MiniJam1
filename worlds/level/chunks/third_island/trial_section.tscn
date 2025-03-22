@@ -12,7 +12,7 @@ size = Vector3(5.18579, 4.83093, 5.04541)
 size = Vector3(4.07813, 2.97083, 5.19141)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_txck2"]
-size = Vector3(189.55, 38.4506, 224.789)
+size = Vector3(503.502, 38.4506, 450.017)
 
 [node name="trial_section" type="Node3D"]
 
@@ -30,7 +30,7 @@ size = Vector3(14.9336, 1, 13.063)
 [node name="revitalizer" parent="." node_paths=PackedStringArray("objects_to_affect") instance=ExtResource("1_msqfx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9967, 0.120535, 13.1269)
 duration_in_seconds = 63.0
-objects_to_affect = [NodePath("../invisible_section/floor"), NodePath("../invisible_section/moving_platform"), NodePath("../invisible_section/moving_platform2"), NodePath("../invisible_section/moving_platform3"), NodePath("../invisible_section/gravity_flip")]
+objects_to_affect = [NodePath("../invisible_section/floor"), NodePath("../invisible_section/moving_platform"), NodePath("../invisible_section/moving_platform2"), NodePath("../invisible_section/moving_platform3"), NodePath("../invisible_section/gravity_flip"), NodePath("../invisible_section/walls")]
 active_color = Color(0, 1, 1, 1)
 
 [node name="area" type="CollisionShape3D" parent="revitalizer"]
@@ -120,10 +120,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
 
 [node name="gravity_flip" parent="invisible_section" instance=ExtResource("3_txck2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.592, 0.907228, 24.5141)
+can_reset_flip = true
 
 [node name="area" type="CollisionShape3D" parent="invisible_section/gravity_flip"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985413, 0)
 shape = SubResource("BoxShape3D_74b1g")
+
+[node name="walls" type="CSGCombiner3D" parent="invisible_section"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.236, 1.00861, 30.1081)
+use_collision = true
+
+[node name="box" type="CSGBox3D" parent="invisible_section/walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87677, -1.62273, -8.79588)
+size = Vector3(5.6803, 35.7307, 17.0452)
+
+[node name="box2" type="CSGBox3D" parent="invisible_section/walls"]
+transform = Transform3D(0.970704, 0, -0.240279, 0, 1, 0, 0.240279, 0, 0.970704, 0.97805, 0.225006, 4.77259)
+size = Vector3(7.25891, 19.3193, 22.0831)
 
 [node name="manual_revitalizer_kill_switch" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.6, 417.025, 42.4852)

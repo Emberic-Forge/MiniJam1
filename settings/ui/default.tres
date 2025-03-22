@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cbw7nqiyn5gxt"]
+
+[ext_resource type="FontFile" uid="uid://bnrgjb8yj38fo" path="res://ui/fonts/EBGaramond-VariableFont_wght.ttf" id="1_n5dvl"]
+[ext_resource type="StyleBox" uid="uid://oaowg5h3cppn" path="res://settings/ui/style_box/hovered_button.tres" id="2_n40oj"]
+[ext_resource type="StyleBox" uid="uid://nbgbtthuj6dn" path="res://settings/ui/style_box/pressed_button.tres" id="3_53nej"]
+[ext_resource type="FontFile" uid="uid://bc3er6ehc7ttj" path="res://ui/fonts/EBGaramond-Italic-VariableFont_wght.ttf" id="4_n5dvl"]
+[ext_resource type="StyleBox" uid="uid://3hqwaautxss7" path="res://settings/ui/style_box/panel.tres" id="4_n40oj"]
+[ext_resource type="StyleBox" uid="uid://cl1j2h716p1iv" path="res://settings/ui/style_box/background_panel.tres" id="4_qdh2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_53nej"]
+
+[resource]
+Button/colors/font_hover_color = Color(0.87451, 0.87451, 0.87451, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_n5dvl")
+Button/styles/focus = ExtResource("2_n40oj")
+Button/styles/hover = ExtResource("2_n40oj")
+Button/styles/normal = SubResource("StyleBoxEmpty_53nej")
+Button/styles/pressed = ExtResource("3_53nej")
+DarkenPanel/base_type = &"Panel"
+DarkenPanel/styles/panel = ExtResource("4_qdh2b")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_n5dvl")
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+Panel/styles/panel = ExtResource("4_n40oj")
+PanelContainer/styles/panel = ExtResource("4_n40oj")
+RichTextLabel/fonts/italics_font = ExtResource("4_n5dvl")
+RichTextLabel/fonts/normal_font = ExtResource("1_n5dvl")

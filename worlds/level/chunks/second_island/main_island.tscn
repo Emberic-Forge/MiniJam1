@@ -104,8 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.06404, 0, -61.2442)
 size = Vector3(23.7506, 1, 110.735)
 
 [node name="box5" type="CSGBox3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.6824, 0, -65.1674)
-size = Vector3(13.6973, 1, 48.291)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.6824, 0, -66.4936)
+size = Vector3(13.6973, 1, 50.9434)
 
 [node name="box6" type="CSGBox3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.7091, 0, -67.433)
@@ -187,8 +187,12 @@ size = Vector3(1.51953, 12.5479, 1.9873)
 
 [node name="revitalizer" parent="." node_paths=PackedStringArray("objects_to_affect") instance=ExtResource("2_ng5v0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29135, 0.154283, -134.147)
+duration_in_seconds = null
 objects_to_affect = [NodePath("../invisible_floor/box"), NodePath("../invisible_floor/box2"), NodePath("../invisible_floor/box3"), NodePath("../invisible_floor/box4"), NodePath("../invisible_walls/box"), NodePath("../invisible_walls/box2")]
+animation_transition_time = null
 active_color = Color(0, 1, 1, 1)
+inactive_color = null
+color_transition_time = null
 
 [node name="area" type="CollisionShape3D" parent="revitalizer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100494, 3.42563, -0.00849915)
@@ -196,8 +200,12 @@ shape = SubResource("BoxShape3D_aenxl")
 
 [node name="revitalizer2" parent="." node_paths=PackedStringArray("objects_to_affect") instance=ExtResource("2_ng5v0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.82074, 0.154287, -182.616)
+duration_in_seconds = null
 objects_to_affect = [NodePath("../invisible_floor/box"), NodePath("../invisible_floor/box2"), NodePath("../invisible_floor/box3"), NodePath("../invisible_floor/box4"), NodePath("../invisible_walls/box"), NodePath("../invisible_walls/box2")]
+animation_transition_time = null
 active_color = Color(0, 1, 1, 1)
+inactive_color = null
+color_transition_time = null
 
 [node name="area" type="CollisionShape3D" parent="revitalizer2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100494, 3.42563, -0.00849915)

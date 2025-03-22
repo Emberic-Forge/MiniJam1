@@ -1,0 +1,12 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://oaowg5h3cppn"]
+
+[ext_resource type="Texture2D" uid="uid://c6ysps3ehpbq" path="res://ui/kenney_fantasy-ui-borders/PNG/Default/Border/panel-border-002.png" id="1_m88u2"]
+
+[resource]
+texture = ExtResource("1_m88u2")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
